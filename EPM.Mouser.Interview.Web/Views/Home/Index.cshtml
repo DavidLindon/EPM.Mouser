@@ -1,0 +1,49 @@
+﻿@using EPM.Mouser.Interview.Web.Controllers;
+@using EPM.Mouser.Interview.Models;
+@model List<Product>
+@{
+    ViewData["Title"] = "Test Page";
+}
+
+
+<h1>In Stock items</h1>
+
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Action</th>
+            <th>Name</th>
+            <th>Stock</th>
+            <th>Available stock</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.Count > 0){
+            foreach (Product product in Model){
+                <tr scope="col">
+                    <td scope="row"><A href="">Details</A></td>
+                    <td>@product.Name</td>
+                    <td>@product.InStockQuantity</td>
+                    <td style="color: @HomeController.GetFontColour(product)">@Html.Raw(product.InStockQuantity-product.ReservedQuantity)</td>
+                </tr>
+            }
+        } else{
+            <tr>
+                <td colspan="7">No records</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*
+    Display a table here which shows the products with any Available stock
+    - use the bootstrap table styling
+    - Available stock = Total Stock - Reserved Stock
+    - Columns shown:
+        - action => with a link to a placeholder product detail page. 
+        - Name
+        - Total Amount in stock
+        - Available stock (this should be orange if < 10 and red < zero)
+
+*@
